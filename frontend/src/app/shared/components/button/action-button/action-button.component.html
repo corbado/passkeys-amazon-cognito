@@ -1,8 +1,0 @@
-<div class="container">
-  <div *ngFor="let button of buttons; index as i">
-    <button (click)="emitButtonId(i)" [ngStyle]="size" [disabled]="disabled || (button.if!=undefined && !button.if)" data-title [id]="button.text"
-      class="action">
-      <i class="ci-{{button.icon}} icon"></i>
-    </button>
-  </div>
-</div>

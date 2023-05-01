@@ -1,8 +1,0 @@
-<div class="searchContainer" [ngStyle]="size" [ngClass]="{'isOpen': isfocus && initTags.length > 0}">
-  <i class="ci-search"></i>
-  <input type="text" #origin placeholder="{{placeholder}}" (keyup.enter)="enterEmition(inputControl.value)" [formControl]="inputControl" (focusin)="open(dropdown,origin)">
-  <div class="dropdown" #dropdown [ngStyle]="{'top': size.height}">
-    <ho-tag-list (click)="$event.stopPropagation()" *ngIf="isfocus && initTags.length > 0" [tagList]="initTags" [removable]="removableTags" [activable]="activableTags" (changes)="finalTags.emit($event)" (activeList)="finalActiveTags.emit($event)"></ho-tag-list>
-  </div>  
-</div>
-

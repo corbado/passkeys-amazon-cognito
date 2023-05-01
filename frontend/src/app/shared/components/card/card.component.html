@@ -1,9 +1,0 @@
-<div class="container" [ngStyle]="sizeDefined()">
-  <div class="image {{cardConf.class}}" [lazyLoad]="cardConf.urlImg" [defaultImage]="utils.loadDefaultImage()"></div>
-  <div class="content {{cardConf.class}}">
-    <p class="headline s5 title">{{cardConf.title}}</p>
-    <p *ngIf='cardConf.class!="link"' class="subtitle">{{cardConf.subtitle}}</p>
-    <span [ngClass]="{'hidden':(cardConf.class=='bundle'&&cardConf.tagDesc=='')}" [style.backgroundColor]="(cardConf.tagDesc!='')?cardConf.tagColor:'#ffffff00'"
-      class="tag {{cardConf.class}}">{{cardConf.tagDesc}}</span>
-  </div>
-</div>
