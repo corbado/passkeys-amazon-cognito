@@ -1,0 +1,39 @@
+
+<div class="team-spaces-container">
+  <h2 class="headline s2 no-margin">Alle Spaces deines Teams</h2>
+
+  <!-- <div class="filter-section">
+    <div class="drop-down-container" [ngStyle]="dropDownStyle">
+      <div class="drop-down-top">
+        <i class="ci-Users_Group"></i><span class="helperText">Team Member: <strong class="selected">Alle</strong> </span><i class="ci-Chevron_Down" (click)="toggleDropDown()"></i>
+      </div>
+      <div class="drop-down">
+        <div class="user-item">
+          <input type="checkbox" id="user" name="user"><label for="user">User Name</label>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="spaces-previews-container">
+    <div *ngFor="let space of teamSpaces" class="space-preview">
+      <div class="left">
+        <div class="icon-title">
+          <div class="space-preview-icon">
+            <ho-avatar class="avatar" [avatarData]="space" [avatarText]="space.title"></ho-avatar>
+          </div>
+          <span class="navigationText">{{space.title}}</span>
+        </div>
+        <div class="foreign-space-info">
+          <span class="users-icon-violett foreign-space"></span>
+          <span class="created-by helperText" *ngIf="space.author && space.author.name" [title]="space.author?.name">Erstellt von <strong>{{space.author?.name}}</strong> </span>
+        </div>
+      </div>
+      <div class="right">
+        <button class="rectangle light navigationText" (click)="onDuplicateClick(space)"><i class="ci-Copy"></i><span class="button-text">duplizieren</span> </button>
+        <button class="rectangle light navigationText" (click)="onAddToMySpacesClick(space.feedID)"><i class="ci-List_Add"></i><span class="button-text">zu deinen Spaces hinzufügen</span> </button>
+      </div>
+    </div>
+  </div>
+
+</div>

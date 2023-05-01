@@ -1,0 +1,21 @@
+<div class="dsc-carousel" [ngStyle]="{'height': finalHeight,'width':finalWidth}">
+    <div class="dsc-carousel__btns">
+        <i class="ci-Chevron_Left" (click)="setBack()"></i>
+        <i class="ci-Chevron_Right" (click)="setNext()"></i>
+    </div>
+    <div class="dsc-carousel__content">
+        <ng-container *ngFor="let section of items;">
+            <div class="dsc-carousel__content-item" [lazyLoad]="section.url" [defaultImage]="utils.loadDefaultImage()" [ngStyle]="{'margin-left': section.marginLeft + '%' }">                
+            </div>
+        </ng-container>
+    </div>
+    <div class="dsc-carousel__steps">
+        <div            
+            [lazyLoad]="item.url"
+            [defaultImage]="utils.loadDefaultImage()"
+            class="dsc-carousel__steps-step 
+            dsc-carousel__steps-step-{{currentPosition === item.order ? 'active': ''}}" 
+            *ngFor="let item of items" (click)="setCurrentPosition(utils.ensure(item.order))">
+        </div>
+    </div>
+</div>

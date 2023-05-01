@@ -1,0 +1,32 @@
+ho-text-input-iconed {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.login-form,
+.registration-form{
+  width: 400px;
+  @media (max-width: 600px) {
+    width: calc(100% - 60px);
+    position: relative;
+    left: 10px;
+  }
+}
+.sub-actions{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+}
+.navigationText,
+.navigationText.link{
+    margin: .5em 0;
+    font-weight: normal;
+}
+
+.navigationText.link{
+    cursor: pointer;
+    font-weight: normal;
+    text-decoration: underline;
+}

@@ -1,0 +1,36 @@
+<div class="register-page-container card">
+  <div class="center">
+    <h3 class="headline s3">Sign up to get started</h3>
+  </div>
+  <div class="registration-form-container" [ngClass]="{'active':sent}" (keyup.enter)="this.registerUser()">
+    <form [formGroup]="registerForm">
+      <div class="input-box">
+        <i class="ci-Mail"></i> <input  class="inputField" type="text" placeholder="your@email.com" formControlName="email"/>
+      </div>
+      <div class="input-box">
+        <i *ngIf="!showPassword" class="ci-Hide password"></i> <input *ngIf="!showPassword" class="inputField" type="password" placeholder="" formControlName="password" />
+        <i *ngIf="showPassword" class="ci-Show password"></i> <input *ngIf="showPassword"  class="inputField" type="text" placeholder="" formControlName="password" />
+        <p class="show-password" *ngIf="!showPassword" (click)="showPassword = true;">show</p><p class="show-password" *ngIf="showPassword" (click)="showPassword = false;">hide</p>
+      </div>
+      <p class="password-req">Password requirements: <br/>9 Characters · 1 uppercase · 1 lowercase</p>
+      <div class="agb-container">
+        <input  formControlName="agb" type="checkbox"/>
+        <p class="terms helperText"  *ngIf="!sent">
+          Ich stimme den <a href="https://corbado.com/terms-of-use/" target="_blank" class="navigationText link">AGB</a> und der <a href="https://corbado.com/privacy-policy/" target="_blank" class="navigationText link">Datenschutzerklärung</a> zu.
+        </p>
+      </div>
+      <button class="rectangle dark sign-up-button" (click)="this.registerUser()" [class.disabled]="this.registerForm.invalid" [disabled]="this.registerForm.invalid"> <i class="ci-Arrow_Right_MD"></i> Sign up </button>
+    </form>
+  </div>
+</div>
+<div class="sub-actions">
+  <p class="loginText text">Already registered?</p>
+  <p class="navigationText link loginText" routerLink="auth">Login</p>
+</div>
+<div *ngIf="company" class="containerLogo">
+  <img
+    class="companyLogo"
+    [lazyLoad]="company.logo ? company.logo.url : utils.loadDefaultImage()"
+    [defaultImage]="utils.loadDefaultImage()"
+  />
+</div>

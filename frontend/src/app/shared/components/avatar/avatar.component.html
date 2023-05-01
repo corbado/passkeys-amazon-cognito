@@ -1,0 +1,9 @@
+<div class="avatar-container" (click)="redirect()">
+    <span class="avatar-text" [innerHTML]="displayText" *ngIf="!imgBase64"></span>
+    <div class="img-container" *ngIf="imgBase64">
+      <img [src]="imgBase64" class="img"/>
+    </div>
+    <div class="img-container" *ngIf="lazyLoad">
+      <img [lazyLoad]="picURL" class="img"/>
+    </div>
+</div>

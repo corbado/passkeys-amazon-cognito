@@ -1,0 +1,11 @@
+<div class="input-container" *ngIf="this.formGrp" [formGroup]="this.formGrp" [ngClass]="{'valid':this.isValid(), 'invalid': this.isInvalid()}">
+  <i class="ci-{{ this.icon }}"></i>
+  <input
+    class="input-field"
+    [type]="this.type"
+    [placeholder]="this.placeholder"
+    formControlName="input"
+  />
+  <i class="ci-Check_Big" *ngIf="this.isValid()"></i>
+  <i class="ci-error_outline" *ngIf="this.isInvalid()"></i>
+</div>

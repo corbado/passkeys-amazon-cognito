@@ -1,0 +1,56 @@
+<div class="page-container">
+  <div class="content-container">
+    <div class="spacer"></div>
+  
+    <div class="content-title-container">
+
+      <!-- Title edit mode -->
+      <span class="title-hint helperText content" *ngIf="space && pageTitleEditMode">Page Titel</span>
+      <input
+        class="title-input content"
+        #pageTitle
+        *ngIf="page && pageTitleEditMode"
+        (keyup)="newPageTitle = pageTitle.value"
+        (keyup.enter)="changePageTitle()"
+        value="{{page?.title}}"
+      />
+      <button 
+        *ngIf="page && pageTitleEditMode"
+        (click)="changePageTitle()"
+        class="rectangle dark navigationText title-save-button content"
+      >Speichern</button>
+
+      <!-- Title display mode -->
+      <h3
+        *ngIf="space && !pageTitleEditMode"
+        class="headline s3 nomargin title content"
+        [class.grey]="!page?.title"
+        [title]="page?.title"
+        (click)="pageTitleEditReq()"
+      >{{(page && page.title) ? page.title : getDefaultTitle()}}</h3>
+      <button
+        *ngIf="page && hasEditRights() && !pageTitleEditMode"
+        (click)="pageTitleEditReq()"
+        class="round light title-edit-icon content"
+      ><i class="ci-Edit_Pencil_01"></i></button>
+    </div>
+
+    <div *ngFor="let post of content" class="space-content card">
+      <ho-content [post]="post" (movePostReq)="onMovePostReq($event)"></ho-content><!-- (movePostReq)="movePost($event)" -->
+    </div>
+
+    <div *ngFor="let user of usersInfo" class="space-content card">
+      <ho-content-team [userInfo]="user" (movePostReq)="onMovePostReq($event)" (removeUserReq)="onRemoveUserReq($event)"></ho-content-team><!-- (movePostReq)="movePost($event)" -->
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+  
+  <div class="content-foot-container">
+    <button *ngIf="auth.isAuth() && page?.type === 'content'" class="rectangle dark navigationText post-creator" (click)="shareContent()"> <i class="ci-Edit_Pencil_01"></i> Content teilen </button>
+    <button *ngIf="auth.isAuth() && page?.type === 'team'" class="rectangle dark navigationText post-creator" (click)="addTeamMember()"> <i class="ci-User_01"></i> Teammitglieder {{usersInfo.length === 0 ? 'hinzufügen' : 'ändern'}} </button>
+    <div class="support-bar-container">
+      <ho-support-bar></ho-support-bar>
+    </div>
+  </div>
+</div>

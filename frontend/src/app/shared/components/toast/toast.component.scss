@@ -1,0 +1,66 @@
+@use "sass:map";
+@import "../../css/variables";
+
+.borderToast{
+    padding-top: 4px;
+    border-radius: 10px;
+    &.information{
+        background: map.get($blueShadow, "60");
+    }
+    &.success{
+        background: $devGreen;
+    }
+    &.warning{
+        background: $devRed;
+    }
+    &.loading{
+        background: $mainOceans;
+    }
+}
+
+i{
+    font-size: 26px;
+    margin-right: 10px;
+}
+span{
+    font-size: 20px;
+    margin-right: 10px;
+    padding-bottom: 4px;
+}
+p{
+    margin:0;
+    
+    color:$mainWhite;
+}
+
+.toastContainer{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background:map.get($blueShadow, "80");
+    border-radius: 10px;
+}
+
+.ci-Circle_Warning{
+    color:$devRed;
+}
+.ci-Check{
+    color:$devGreen;
+}
+
+mat-spinner{
+    margin-right: 10px;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background: map.get($blueShadow, "80");
+
+}
+
+::ng-deep .mat-snack-bar-container,.mat-snack-bar{
+    border-radius: 10px;
+} 
+
+::ng-deep .toastContainer .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: $mainOceans;
+}

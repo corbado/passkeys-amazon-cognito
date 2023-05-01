@@ -1,0 +1,13 @@
+<div class="wrapper">
+
+  <div *ngIf="this.router.url.startsWith('/auth/register')" class="corbado-white-img left"></div>
+
+  <div *ngIf="this.router.url.startsWith('/auth/register')" class="left registration-img">
+
+  </div>
+
+  <div class="content right" [class.full]="this.router.url !== '/auth/register'">
+    <div [class.register]="this.router.url === '/auth/register'" class="corbado-white-img center"></div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.container{
+  padding-top:4px;
+  & i{
+    font-size: 18px;
+    font-weight: 500;
+    color:#0E2F3E;
+    padding: 1px;
+    border-radius: 50px;
+    &:hover{
+      background-color: #DBE3E5;
+      cursor: pointer;
+    }
+    &.ci-Checkbox_checked{
+      background-color: #A1E0E3;
+    }  
+  }
+  & input{
+    display: none;
+  }
+}

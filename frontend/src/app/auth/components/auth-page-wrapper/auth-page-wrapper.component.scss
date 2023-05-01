@@ -1,0 +1,66 @@
+@import "../../../shared/css/variables";
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background: linear-gradient(103.45deg, #694BF8 6.71%, #9381FF 92.03%);
+  .corbado-white-img {
+    height: 60px;
+    &.left {
+      width: 120px;
+      position: absolute;
+      top: 36px;
+      left: 36px;
+    }
+    &.center {
+      width: 120px;
+      position: absolute;
+      top: 36px;
+    }
+    &.register {
+      display: none;
+      @media (max-width: 600px) {
+        display: block;
+      }
+    }
+  }
+  .left {
+    position: relative;
+    width: 50%;
+    min-width: 50px;
+  }
+  .right {
+    position: relative;
+    width: 50%;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.full {
+      width: 100%;
+    }
+  }
+  * {
+    color: $mainBlue;
+  }
+}
+
+@media (max-width: 600px) {
+  /* For mobile phones: */
+  .wrapper {
+    .left {
+      display: none;
+      width: 0px;
+      height: 0px;
+    }
+    .right {
+      width: calc(100% - 20px) !important;
+      min-width: none !important;
+      padding: 0px 10px;
+    }
+  }
+}

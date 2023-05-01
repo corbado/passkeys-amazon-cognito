@@ -1,0 +1,16 @@
+@import '../../css/variables';
+
+i{
+  font-size: 18px;
+  color: $mainOceans;
+  &:hover{
+    cursor:pointer;
+  }
+}
+
+.disabled{
+  color: $mainGray;
+  &:hover{
+    cursor:default;
+  }
+}

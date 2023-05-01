@@ -1,0 +1,39 @@
+@use "sass:map";
+@import "../css/sharedStyles.scss";
+@import "../../../shared/css/_variables.scss";
+
+h4{
+    margin:0;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  .headline {color: white}
+  p {
+    justify-content: center;
+    justify-self: center;
+    color: white
+  }
+  .input-box {background-color: white;}
+  button, .input-box {
+    position: relative;
+    width: 50%;
+    left: 25%;
+    i {
+      position: absolute;
+      color: #86A0A8;
+      z-index: 2;
+      left: 6px;
+      top: 10px;
+    }
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding-left: 28px;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<div class="ho-state-circles">
+  <div class="circles">
+    <div class="state" *ngFor="let state of states;index as i">
+      <div class="circle" [ngClass]="{
+        'circle-check': i <= indexStateTemp,
+        'circle-active': enabled
+      }" (click)="onChangeState(state,i)">
+        <i class="ci-Check icon"></i>
+      </div>
+      <div class="bar" *ngIf="i!=states.length-1">
+        <div class="bar-check" [ngClass]="{
+          'bar-check-100': i <= indexStateTemp && i!=indexState,
+          'bar-check-50': i == indexStateTemp && i==indexState
+        }">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="texts">
+    <p class="state-text" *ngFor="let state of states;">{{state.name}}</p>
+  </div>
+</div>

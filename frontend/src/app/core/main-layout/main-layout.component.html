@@ -1,0 +1,5 @@
+<!-- <ho-menu-bar (activeState)="changeState($event)"></ho-menu-bar> -->
+<div class="container" [ngClass]="{'opened':isExpanded}">
+    <router-outlet (activate)="changeRoute()"></router-outlet>
+    <ho-support-bar></ho-support-bar>
+</div>

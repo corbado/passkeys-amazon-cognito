@@ -1,0 +1,5 @@
+<div style="display: flex; flex-direction: row; align-items: center;">
+  <i [ngClass]="{'disabled': disabled}" class="ci-minus_circle_outline button" (click)="changeValue(number-1)"></i>
+  <p class="navigationText" style="width: 29px; text-align: center;">{{number}}</p>
+  <i [ngClass]="{'disabled': disabled}" class="ci-Add_Plus_circle_outline button" (click)="changeValue(number+1)"></i>
+</div>

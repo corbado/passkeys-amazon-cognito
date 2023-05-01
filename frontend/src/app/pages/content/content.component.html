@@ -1,0 +1,101 @@
+<div class="analytics" *ngIf="auth.isAuth() && spaceService.currentUserHasEditRights() && (contentType === 'website' || contentType === 'pdf')">
+  <i class="ci-Chart_Line"></i><p>{{numberOfViews}}x {{contentType === 'website' ? 'geöffnet' : 'gescrollt'}}</p>
+</div>
+
+<div class="content-menu-container" *ngIf="auth.isAuth()">
+  <button *ngIf="spaceService.currentUserHasEditRights()" class="round light title-edit-icon" (click)="openPostEditMenu()"><i class="ci-More_Horizontal"></i></button>
+  <div class="post-menu-container" style="position: absolute; z-index: 10;" *ngIf="menuOpen">
+    <div class="menu-item-container">
+      <div class="edit-post-button helperText" style="z-index: 10;" (mousedown)="editPostReq()"> <i class="ci-Edit_Pencil_01"></i> Beitrag bearbeiten</div>
+    </div>
+    <div class="menu-item-container">
+      <!-- condition for analytics is same as for being abble to pin a post -->
+      <!-- <div *ngIf="enableAnalytics" class="edit-post-button helperText" style="z-index: 10;" (click)="pinPostReq(post.id)"><i [ngClass]="post.pinned ? 'ci-Flag' : 'ci-Flag'"></i> {{ post.pinned ? 'Beitrag unpinnen' : 'Beitrag pinnen' }} </div> -->
+    </div>
+    <div class="menu-item-container">
+      <div *ngIf="spaceService.currentUserHasEditRights()" class="edit-post-button helperText" style="z-index: 10;" (mousedown)="movePost(+1)"> <i class="ci-Arrow_Up_MD"></i> 1x hoch schieben</div>
+    </div>
+    <div class="menu-item-container">
+      <div *ngIf="spaceService.currentUserHasEditRights()" class="edit-post-button helperText" style="z-index: 10;" (mousedown)="movePost(-1)"> <i class="ci-Arrow_Down_MD"></i> 1x runter schieben</div>
+    </div>
+          <div class="menu-item-line"></div>
+
+    <div class="menu-item-container">
+      <div class="edit-post-button helperText" style="z-index: 10; color:#EA3737;" (mousedown)="deletePostReq(post.id)"> <i class="ci-Trash_Full"></i> Beitrag löschen</div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="post.hide_thumbnail" class="no-thumbnail-banner"><span class="link-peach"></span></div>
+
+<div class="post-links-container" *ngIf="!post.hide_thumbnail && post.links && post.links.length > 0 && !isVideo() && !isPitch()">
+  <div *ngFor="let link of post.links">
+  <ho-file-display [link]="link" [content]="true" (linkClicked)="onLinkClicked($event)"></ho-file-display>
+  </div>
+</div>
+
+<div class="post-youtube-container" *ngIf="!post.hide_thumbnail && post.links && post.links.length > 0 && (isVideo() || isPitch() || isMiro())">
+  <div class="iframe-container" *ngIf="safeLink">
+    <iframe width="100%" height="400px" [src]="safeLink" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <!-- <iframe width="100%" height="400px" [src]="safeLink" frameborder="0" scrolling="no" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen></iframe> -->
+  </div>
+</div>
+
+<div class="post-files-container" *ngIf="!post.hide_thumbnail && post.files && post.files.length > 0">
+  <div *ngFor="let file of post.files">
+    <ho-file-display [fileData]="file"></ho-file-display>
+  </div>
+</div>
+
+<div class="content-footer">
+  <div class="left-footer">
+    <img class="post-footer-logo pdf" *ngIf="contentType === 'pdf'" src="../../../assets/icons/contentlogo_PDF.png" />
+    <img class="post-footer-logo img" *ngIf="contentType === 'img'" src="../../../assets/icons/contentlogo_picture.png" />
+    <img class="post-footer-logo website" *ngIf="contentType === 'website'" src="../../../assets/icons/contentlogo_website.png" />
+    <img class="post-footer-logo youtube" *ngIf="contentType === 'youtube'" src="../../../assets/icons/contentlogo_Youtube.png" />
+    <img class="post-footer-logo loom" *ngIf="contentType === 'loom'" src="../../../assets/icons/contentlogo_Loom.png" />
+    <img class="post-footer-logo vidyard" *ngIf="contentType === 'vidyard'" src="../../../assets/icons/contentlogo_Vidyard.png" />
+    <img class="post-footer-logo pitch" *ngIf="contentType === 'pitch'" src="../../../assets/icons/contentlogo_pitch.png" />
+    <h5 class="headline s5 nomargin">{{post.title}}</h5>
+    <span class="helperText">{{post.description}}</span>
+  </div>
+  <div class="right-footer">
+    <div class="content-reac-container"></div>
+    <div class="icons-container">
+      <button class="rectangle light navigationText open-content" (click)="openContent()"> Open <i class="ci-Arrow_Right_LG"></i> </button>
+      <div *ngIf="spaceService.canPost()" class="communication-icon" (click)="toggleCommentSection()"></div>
+    </div>
+  </div>
+</div>
+
+<div class="comments-container" [style]="commentsStyle">
+  <div class="post-comments-container" *ngIf="post.comments && post.comments.length > 0">
+    <!-- comments -->
+    <div *ngFor="let comment of post.comments; let i = index" class="post-comment">
+      <div class="post-comment-container">
+        <div class="post-header-container">
+          <div class="user-avatar">
+            <ho-avatar [avatarText]="comment.author?.name" [avatarData]="comment.author"></ho-avatar>
+          </div>
+          <div class="post-header-content">
+            <span class="navigationText">{{comment.author?.name}}</span>
+            <span class="helperText timing">{{comment.timestamp ? utils.getTimingText(comment.timestamp) : 'just now'}}</span>
+          </div>
+          <div class="post-header-menu more-icon" style="z-index: 10;" (click)="openCommentEditMenu(i)" *ngIf="auth.isCurrentUser(comment.id_creator)">
+            <div class="post-menu-container" style="position: absolute; z-index: 10;" *ngIf="commentEditIndex === i">
+              <!-- <div class="edit-post-button helperText" style="z-index: 10;" (click)="editCommentReq(comment.id)"> <i class="ci-Edit_Pencil_01"></i> Beitrag bearbeiten</div> -->
+              <div class="edit-post-button helperText" style="z-index: 10;" (click)="deleteCommentReq(comment.id)"> <i class="ci-Trash_Full"></i> Beitrag löschen</div>
+            </div>
+          </div>
+        </div>
+        <div class="post-content-container comment">
+          <p class="post-content" [innerHTML]="getContentHTML(comment.content)"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="post-comment-writer" *ngIf="canPost">
+    <div class="send-icon paper-plane-icon"  (click)="postComment()"></div>
+    <textarea #commentWriterRef class="comment-writer" placeholder="Dein Kommentar" (keyup)="autogrow()" (keydown.enter)="onEnter($event)" (keydown.shift)="onShift()" (keyup.shift)="onUnShift()"></textarea>
+  </div>
+</div>

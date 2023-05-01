@@ -1,0 +1,42 @@
+<div
+  (click)="isOpen = !isOpen"
+  [ngClass]="{ open: isOpen }"
+  class="iconContainer"
+>
+  <i *ngIf="!isOpen" class="ci-Circle_Help"></i>
+  <i *ngIf="isOpen" class="ci-Close_LG"></i>
+</div>
+<div *ngIf="isOpen" class="barContainer">
+  <ul class="listMenu">
+    <a href="mailto:felix@corbado.com">
+      <li class="menuItem">
+        <div class="iconText">
+          <i class="ci-Mail"></i>
+          <p class="helperText">Send Feedback</p>
+        </div>
+        <i class="ci-External_Link"></i>
+      </li>
+    </a>
+    <a href="https://corbado.com/legal-notice/" target="_blank">
+      <li class="menuItem">
+        <div class="iconText">
+          <i class="ci-File_Blank"></i>
+          <p class="helperText">Legal Notice</p>
+        </div>
+        <i class="ci-External_Link"></i>
+      </li>
+    </a>
+    <a href="https://corbado.com/privacy-policy/" target="_blank">
+      <li class="menuItem">
+        <div class="iconText">
+          <i class="ci-Cookie"></i>
+          <p class="helperText">Privacy Policy</p>
+        </div>
+        <i class="ci-External_Link"></i>
+      </li>
+    </a>
+  </ul>
+  <div class="corbadoContainer">
+    <p class="helperText">hæppie Beta</p>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+@import '../../css/variables';
+
+.searchContainer{
+  display: flex;
+  position: relative;
+  flex-flow: row nowrap;
+  background: $mainWhite;
+  border: 0px;
+  box-shadow: 0px 3px 8px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  align-items: center;
+  &.isOpen{
+    border-radius: 12px 12px 0px 0px;
+  }
+  & input{
+    /* Paragraph Text */
+    position: relative;
+    width: 100%;
+    font-family: Source Sans Pro, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 5%;
+    font-size: 0.875rem;
+    line-height: 1.25rem;      
+    letter-spacing: 0.02em;              
+    color: $mainBlue; 
+    border: none;
+  }
+  & i{  
+      font-size: 19px;
+      margin-left: 10px;
+      color: $mainBlue;
+      font-weight: 600;  
+  }
+  & .dropdown{
+    position: absolute;
+    width: 100%;    
+    border-top: 1px solid #F0F3F3;
+    left:0;    
+    height: auto;    
+    & ho-tag-list{
+      position: absolute;
+      width: calc(100% - 4px);      
+      padding:10px 2px;
+      min-height:150px;
+      border-radius:0px 0px 12px 12px;
+      background-color:$mainWhite;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); 
+
+    }
+  }
+  }

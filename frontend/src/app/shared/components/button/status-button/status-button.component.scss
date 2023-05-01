@@ -1,0 +1,65 @@
+@use "sass:map";
+@import '../../../css/variables';
+.info{
+  width: 20px;
+  height: 20px;
+  position:relative;
+  & i{
+    font-size: 20px;
+    color:$mainOceans;
+  }
+  &.warning{
+    & i{
+      color:map.get($orangeShadow, "120");
+    }
+    &:not(:disabled)[data-title]:hover::before {
+      background: map.get($orangeShadow, "120");
+    }
+    &:not(:disabled)[data-title]:hover::after {
+      border-bottom: 8px solid map.get($orangeShadow, "120");
+    }
+
+  }
+
+&:not(:disabled)[data-title] {  
+  position: relative;
+}
+&:not(:disabled)[data-title]:hover::before {
+  content: attr(id);
+  min-width: 76px;
+  height: 18px;
+  position: absolute;
+  bottom: -28px;
+  left: -30px;
+  /* Helper Text */
+  font-family: Source Sans Pro, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: .75rem;
+  line-height: 1rem;  
+  /* identical to box height, or 120% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  letter-spacing: 0.02em;
+  padding: 3px 3px;
+  border-radius: 2px;
+  color: $mainWhite;
+  white-space: nowrap;
+  background: $mainOceans;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 99;
+}
+&:not(:disabled)[data-title]:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 4.5px;
+  display: inline-block;
+  color: $mainWhite;
+  border: 6px solid transparent;	
+  border-bottom: 8px solid $mainOceans;
+}
+}

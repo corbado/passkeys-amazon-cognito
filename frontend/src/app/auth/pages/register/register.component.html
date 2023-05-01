@@ -1,0 +1,100 @@
+<div class="center">
+  <h4 class="headline s4">
+    {{
+      sent
+        ? "Bestätige deine E-Mail Adresse"
+        : company
+        ? "Registriere dich für " + company.name + " bei hæppie"
+        : "Registere dich zuerst bei hæppie"
+    }}
+  </h4>
+</div>
+<div class="registration-form" [ngClass]="{'active':sent}" (keyup.enter)="this.registerUser()">
+  <ng-container *ngIf="!sent">
+    <ho-text-input-iconed
+      [placeholder]="'Vorname Nachname'"
+      [icon]="'user'"
+      [formGrp]="this.getFormGroup('name')"
+      [showInputStatus]="true"
+    ></ho-text-input-iconed>
+    <ho-text-input-iconed
+      [type]="'email'"
+      [placeholder]="'your@email.com'"
+      [icon]="'mail'"
+      [formGrp]="this.getFormGroup('email')"
+      [showInputStatus]="true"
+    ></ho-text-input-iconed>
+    <ho-text-input-iconed
+      [placeholder]="'Unternehmen'"
+      [icon]="'id_card'"
+      [formGrp]="this.getFormGroup('company')"
+      [showInputStatus]="true"
+      [type]="'text'"
+    ></ho-text-input-iconed>
+    <div class="passwordTooltip">
+      <ho-text-input-iconed
+        class="formPassword"
+        [placeholder]="'Password'"
+        [icon]="'hide'"
+        [type]="'password'"
+        [formGrp]="this.getFormGroup('password')"
+        [showInputStatus]="true"
+      ></ho-text-input-iconed>
+
+      <div class="tooltip">
+        <i class="ci-Info" (click)="showToolTip=!showToolTip"></i>
+        <div class="tooltiptext" *ngIf="showToolTip">
+          <p class="loginText">Das Passwort benötigt:</p>
+          <ul class="passwordInfo navigationText">
+            <li>→ mindestens 8 Zeichen</li>
+            <li>→ mindestens eine Zahl</li>
+            <li>→ einen Groß- und einen Kleinbuchstaben</li>
+            <li>→ ein Sonderzeichen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="sentInfo" *ngIf="sent">
+    <p class="sentText navigationText">
+      💌 Deine Registrierung war erfolgreich. Schau in dein Postfach und
+      bestätige deine E-Mail Adresse. Danach kannst du dich einloggen.
+    </p>
+  </div>
+  <p class="terms"  *ngIf="!sent">
+    Mit der Registrierung stimmen Sie unseren
+    <a
+      href="https://corbado.com/terms-of-use/"
+      target="_blank"
+      class="navigationText link"
+      >AGB</a
+    >
+    und der
+    <a
+      href="https://corbado.com/privacy-policy/"
+      target="_blank"
+      class="navigationText link"
+      >Datenschutzerklärung</a
+    >
+    zu.
+  </p>
+  <ho-basic-button
+    [text]="'Registrieren'"
+    [color]="'blue'"
+    [disabled]="this.registerForm.invalid"
+    [size]="{ width: '100%', height: '' }"
+    (click)="this.registerUser()"
+    *ngIf="!sent"
+  ></ho-basic-button>
+  <div class="sub-actions">
+    <p class="navigationText loginText">Du hast bereits einen Account?</p>
+    <p class="navigationText link loginText" routerLink="auth">Zum Login</p>
+  </div>
+</div>
+<div *ngIf="company" class="containerLogo">
+  <img
+    class="companyLogo"
+    [lazyLoad]="company.logo ? company.logo.url : utils.loadDefaultImage()"
+    [defaultImage]="utils.loadDefaultImage()"
+  />
+</div>

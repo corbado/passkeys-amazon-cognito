@@ -1,0 +1,76 @@
+@use "sass:map";
+@import "../../../css/variables";
+
+form {
+  width: 100%;
+  position: relative;
+}
+
+::ng-deep .basic {
+  border: 1px solid map.get($blueShadow, "100");
+  border-radius: 15px;
+  background: $mainWhite;
+  box-sizing: border-box;
+  height: 41px;
+  display: flex !important;
+  justify-content: space-between;
+  .mat-select-trigger {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    .mat-select-value {
+      display: flex !important;
+      max-width: none !important;
+      width: 70%;
+      position: relative;
+      .mat-select-value-text {
+        display: flex !important;
+        justify-content: center;
+        overflow: visible;
+        position: relative;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+::ng-deep .basic mat-select-trigger {
+  color: map.get($blueShadow, "100");
+  width: 100%;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-family: Source Sans Pro;
+  letter-spacing: 0.02em;
+  margin: 9px 0 9px 12px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  .overflowed{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.title{
+    position: absolute;
+    left: 19px;
+    top: -6px;
+    background-color: white;
+    padding: 2px;
+    font-family: Source Sans Pro, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+

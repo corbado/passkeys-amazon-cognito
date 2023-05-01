@@ -1,0 +1,40 @@
+@import '../../../css/variables';
+
+.menu{
+  width: 144px;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+  flex-flow: row nowrap;
+  /* Main Colors/æ - white */
+  background: $mainWhite;
+  border: dotted 0px;
+  border-radius: 15px;
+  &.scrolled{
+    width: 40px;
+  }
+  &:hover{cursor: pointer;}
+  & i{    
+    padding-top: 7px;
+    padding-left: 15%;    
+    font-size: 20px;
+  }
+  & span{    
+    padding-top: 11px;
+    padding-left: 16px;
+  }
+  
+  &:not(:disabled):not(.active):hover{
+    background-color: map-get($blueShadow,'30');
+    &>span{
+      color: $mainBlue;     
+      }
+    &>i{
+      color: $mainBlue;     
+      }       
+  }
+}
+.active{
+  @include colorButton($mainBlue);
+}
+

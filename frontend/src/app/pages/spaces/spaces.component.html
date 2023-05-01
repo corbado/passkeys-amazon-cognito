@@ -1,0 +1,27 @@
+<div class="spaces-container">
+  <div class="side-bar-container" *ngIf="auth.isAuth()">
+    <div class="settings-container">
+      <div class="user-container" [class.selected]="router.url.endsWith('settings')">
+        You are successfully logged in with Corbado passkeys!
+      </div>
+      <div class="menu-item settings card no-shade" (click)="goToSettings()" [class.selected]="currentView === 'settings'">
+        <i class="ci-Settings"></i><p>Settings</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="space-container" *ngIf="currentView === 'spaces'" [class.vis]="!auth.isAuth()">
+    <ho-space></ho-space>
+  </div>
+  <div class="space-container" *ngIf="currentView === 'settings'">
+    <ho-settings-new [currentSettingsView]="targetSettings" ></ho-settings-new>
+  </div>
+  <div class="space-container" *ngIf="currentView === 'team-spaces'">
+    <ho-team-spaces></ho-team-spaces>
+  </div>
+  <div class="spaces-overlay" *ngIf="popupService.popupSubject.value" style="z-index: 15;">
+    <div class="spaces-popup-container">
+      <ho-popup [popupType]="popupService.popupSubject.value"></ho-popup>
+    </div>
+  </div>
+</div>

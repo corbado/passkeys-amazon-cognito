@@ -1,0 +1,83 @@
+@use "sass:map";
+@import "../../shared/css/variables";
+
+.top-menu-bar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 49px;
+  border-bottom: 1px solid #F0F3F3;
+  .left-menu-container {
+    height: 100%;
+    width: 227px;
+    margin-left: 32px;
+    .corbado-logo {
+      height: 100%;
+      cursor: pointer;
+    }
+    .back-to-feeds {
+      display: flex;
+      flex-direction: row;
+      margin-top: 15px;
+      padding-top: 2px;
+      height: 22px;
+      width: 180px;
+      border-radius: 4px;
+      cursor: pointer;
+      p {
+        margin-left: 12px;
+        width: fit-content;
+        white-space: nowrap;
+      }
+      i {
+        position: relative;
+        top: 2px;
+      }
+      &:hover {
+        background-color: #F0F3F3;
+      }
+    }
+  }
+  .right-menu-container {
+    height: calc(100% - 4px);
+    display: flex;
+    flex-direction: row;
+    .menu-icon {
+      height: 100%;
+      width: 40px;
+    }
+    .options-menu {
+      width: 80px;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+    .user-menu {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      border-left: 1px solid #F0F3F3;
+      border-right: 1px solid #F0F3F3;
+      margin: 0px 10px;
+      padding: 0px 10px;
+      padding-top: 5px;
+      .avatar-container {
+        position: relative;
+        height: 40px;
+        width: 40px;
+      }
+      .chevron-down-icon {
+        position: relative;
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+      }
+    }
+    .log-out-icon {
+      height: 100%;
+      width: 40px;
+      cursor: pointer;
+    }
+  }
+}
