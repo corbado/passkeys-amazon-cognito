@@ -10,18 +10,6 @@
     </div>
 
   </div>
-  <div class="space-container" *ngIf="currentView === 'spaces'" [class.vis]="!auth.isAuth()">
-    <ho-space></ho-space>
-  </div>
-  <div class="space-container" *ngIf="currentView === 'settings'">
-    <ho-settings-new [currentSettingsView]="targetSettings" ></ho-settings-new>
-  </div>
-  <div class="space-container" *ngIf="currentView === 'team-spaces'">
-    <ho-team-spaces></ho-team-spaces>
-  </div>
-  <div class="spaces-overlay" *ngIf="popupService.popupSubject.value" style="z-index: 15;">
-    <div class="spaces-popup-container">
-      <ho-popup [popupType]="popupService.popupSubject.value"></ho-popup>
-    </div>
-  </div>
+
+
 </div>

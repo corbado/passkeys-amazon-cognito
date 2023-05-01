@@ -35,14 +35,6 @@
       ><i class="ci-Edit_Pencil_01"></i></button>
     </div>
 
-    <div *ngFor="let post of content" class="space-content card">
-      <ho-content [post]="post" (movePostReq)="onMovePostReq($event)"></ho-content><!-- (movePostReq)="movePost($event)" -->
-    </div>
-
-    <div *ngFor="let user of usersInfo" class="space-content card">
-      <ho-content-team [userInfo]="user" (movePostReq)="onMovePostReq($event)" (removeUserReq)="onRemoveUserReq($event)"></ho-content-team><!-- (movePostReq)="movePost($event)" -->
-    </div>
-
     <div class="spacer"></div>
   </div>
   

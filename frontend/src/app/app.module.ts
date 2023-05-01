@@ -18,13 +18,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AppComponent } from './app.component';
 import { SpacesComponent } from './pages/spaces/spaces.component';
 import { TeamSpacesComponent } from './pages/team-spaces/team-spaces.component';
-import { SpaceSelectorComponent } from './pages/space-selector/space-selector.component';
 import { SpaceComponent } from './pages/space/space.component';
 import { SpacePageComponent } from './pages/space-page/space-page.component';
-import { PostComponent } from './pages/post/post.component';
-import { ContentComponent } from './pages/content/content.component';
-import { ContentTeamComponent } from './pages/content-team/content-team.component';
-import { PopupComponent } from './pages/popup/popup.component';
 import { SettingsNewComponent } from './pages/settings/settings-new.component';
 import { CurrentTimeZonePipe } from './pipes/currentTimeZone.pipe';
 import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
@@ -94,13 +89,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     NotFoundComponent,
     SpacesComponent,
     TeamSpacesComponent,
-    SpaceSelectorComponent,
     SpaceComponent,
     SpacePageComponent,
-    PostComponent,
-    ContentComponent,
-    ContentTeamComponent,
-    PopupComponent,
     SettingsNewComponent,
     CurrentTimeZonePipe,
   ],
