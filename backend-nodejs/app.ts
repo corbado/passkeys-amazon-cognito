@@ -1,5 +1,5 @@
 // @ts-ignore
-import {express, json} from 'express';
+const express = require( 'express');
 // @ts-ignore
 import cors from 'cors';
 // @ts-ignore
@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import {signUp, login, logout} from './controllers/authCognitoController';
 import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
+import {json} from "express";
 
 const {webhookMiddleware} = require('corbado-webhook');
 
