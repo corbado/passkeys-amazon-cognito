@@ -3,7 +3,10 @@ import crypto from "crypto";
 // @ts-ignore
 import jwt from "jsonwebtoken";
 import {int} from "aws-sdk/clients/datapipeline";
+// @ts-ignore
 import jwkToPem, {JWK} from "jwk-to-pem";
+
+require("dotenv").config();
 
 const envJWKS = process.env.COGNITO_JWKS;
 const jwks: JWK[] | any[] = JSON.parse(envJWKS as string);

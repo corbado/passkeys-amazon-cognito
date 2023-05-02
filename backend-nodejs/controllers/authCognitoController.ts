@@ -7,7 +7,7 @@ import {
     AdminInitiateAuthCommand,
     AdminInitiateAuthCommandInput,
     AdminSetUserPasswordCommand,
-    AdminSetUserPasswordCommandInput,
+    AdminSetUserPasswordCommandInput, AttributeType,
     AuthFlowType,
     ChallengeNameType,
     CognitoIdentityProviderClient,
@@ -30,8 +30,8 @@ require("dotenv").config();
 
 
 const userPoolId = process.env.COGNITO_USER_POOL_ID;
-const clientId = process.env.COGNITO_CLIENT_ID;
-const clientSecret = process.env.COGNITO_CLIENT_SECRET
+const clientId = process.env.COGNITO_CLIENT_ID || "";
+const clientSecret = process.env.COGNITO_CLIENT_SECRET || "";
 const poolData = {UserPoolId: userPoolId, ClientId: clientId};
 
 const clientConfig: CognitoIdentityProviderClientConfig = {
@@ -137,7 +137,7 @@ export const verifyPassword = async (email: string, password: string): Promise<b
         AuthParameters: {
             USERNAME: email,
             PASSWORD: password,
-            SECRET_HASH: hashSecret(clientSecret, email, clientId)
+            SECRET_HASH: hashSecret(clientSecret, email, clientId) || ""
         },
     };
     try {
@@ -178,8 +178,8 @@ export const getUserStatus = async (email: string): Promise<boolean> => {
         let createdByCorbado: boolean = false;
 
 
-        response.UserAttributes.forEach((attr: UserAttributes) => {
-            if (attr.Name === 'custom:createdByCorbado') {
+        response.UserAttributes.forEach((attr: AttributeType | undefined) => {
+            if (attr && attr.Name === 'custom:createdByCorbado') {
                 createdByCorbado = attr.Value === 'true';
             }
         });

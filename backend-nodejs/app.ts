@@ -8,7 +8,8 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import {signUp, login, logout} from './controllers/authCognitoController';
 import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
-import {webhookMiddleware} from 'corbado-webhook';
+
+const {webhookMiddleware} = require('corbado-webhook');
 
 dotenv.config();
 const app = express();

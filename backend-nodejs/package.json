@@ -28,6 +28,7 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/jwk-to-pem": "^2.0.1",
     "@types/node": "^18.16.3",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",

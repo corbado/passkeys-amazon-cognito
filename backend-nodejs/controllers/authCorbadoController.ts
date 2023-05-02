@@ -1,11 +1,14 @@
 import {Request, Response} from "express";
 // @ts-ignore
 import crypto from "crypto";
-import Corbado from 'corbado';
-import {Webhook} from 'corbado-webhook';
 // @ts-ignore
 import jwt from "jsonwebtoken";
 import {verifyPassword, getUserStatus, createUser, createSession} from "./authCognitoController";
+
+const Corbado = require('corbado');
+
+const {Webhook} = require('corbado-webhook');
+
 
 require("dotenv").config();
 
