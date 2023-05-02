@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 import {map, Observable, Subject} from 'rxjs';
 
 @Injectable({
@@ -13,7 +13,8 @@ export class AuthService {
   private token: string = '';
   private userId: string = '';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   getToken() {
     return this.token;
@@ -28,12 +29,12 @@ export class AuthService {
   }
 
   signUp(email: string, password: string): Observable<any> {
-    const signUpData = { email: email, password: password };
+    const signUpData = {email: email, password: password};
     return this.http.post<{ message: string }>('http://localhost:3000/api/auth/signup', signUpData);
   }
 
   login(email: string, password: string): Observable<any> {
-    const loginData = { email: email, password: password };
+    const loginData = {email: email, password: password};
     return this.http.post<{ token: string, userId: string }>('http://localhost:3000/api/auth/login', loginData)
       .pipe(
         map(responseData => {
@@ -59,6 +60,13 @@ export class AuthService {
 
   getIsAuth() {
     return this.isAuthenticated;
+  }
+
+  async corbadoSessionVerify(corbadoSessionToken: string) {
+    const sessionInfo = await this.http.get(`http://localhost:3000/api/corbado/sessionVerify?corbadoSessionToken=${corbadoSessionToken}`).toPromise();
+    // if (!sessionInfo?.idToken) throw new Error(`cannot fetch authentication token ${loggedInUser}!`);
+    // sessionInfo.last_refresh = +Date.now();
+    return true;
   }
 
 }

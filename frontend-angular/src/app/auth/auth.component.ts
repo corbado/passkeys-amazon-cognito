@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -12,8 +13,21 @@ export class AuthComponent implements OnInit {
   email = '';
   password = '';
   errorMessage = '';
+  queryParamsSubscription!: Subscription;
+  route!: ActivatedRoute;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+    this.queryParamsSubscription = this.route.queryParams.subscribe((queryParams) => {
+      if (queryParams['corbadoSessionToken'] != undefined) {
+        let corbadoSessionToken = queryParams['corbadoSessionToken'];
+        this.authService.corbadoSessionVerify(corbadoSessionToken)
+          .then(res => {
+            router.navigate(['/logged-in'])
+          })
+          .catch(error => console.log(error));
+      }
+    })
+  }
 
   ngOnInit(): void {
   }

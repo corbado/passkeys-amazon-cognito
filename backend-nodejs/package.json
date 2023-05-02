@@ -14,11 +14,14 @@
     "amazon-cognito-identity-js": "^6.2.0",
     "aws-sdk": "^2.1368.0",
     "body-parser": "^1.20.2",
+    "corbado": "^1.0.2",
+    "corbado-webhook": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "jwk-to-pem": "^2.0.5"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
