@@ -14,9 +14,8 @@ export class AuthComponent implements OnInit {
   password = '';
   errorMessage = '';
   queryParamsSubscription!: Subscription;
-  route!: ActivatedRoute;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.queryParamsSubscription = this.route.queryParams.subscribe((queryParams) => {
       if (queryParams['corbadoSessionToken'] != undefined) {
         let corbadoSessionToken = queryParams['corbadoSessionToken'];

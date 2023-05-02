@@ -8,7 +8,10 @@ import jwkToPem, {JWK} from "jwk-to-pem";
 
 require("dotenv").config();
 
+const clientId = process.env.COGNITO_CLIENT_ID;
+const region = process.env.COGNITO_REGION;
 const envJWKS = process.env.COGNITO_JWKS;
+const userPoolId = process.env.COGNITO_USER_POOL_ID;
 const jwks: JWK[] | any[] = JSON.parse(envJWKS as string);
 
 export function hashSecret(clientSecret: string, username: string, clientId: string) {
@@ -39,7 +42,7 @@ export function validateJWT(jwtToken: string, skipExpiredCheck?: boolean) {
         return;
     }
     // @ts-ignore
-    if (decoded.iss !== `https://cognito-idp.${region}.amazonaws.com/${poolID}`) {
+    if (decoded.iss !== `https://cognito-idp.${region}.amazonaws.com/${userPoolId}`) {
         console.log("Invalid iss in token");
         return;
     }

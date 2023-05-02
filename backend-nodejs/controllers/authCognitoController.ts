@@ -25,6 +25,7 @@ import {
 import crypto from "crypto";
 // @ts-ignore
 import {hashSecret, validateJWT, generatePassword} from '../utils/helper';
+import {EXISTS, NOT_EXISTS} from "../utils/constants";
 
 require("dotenv").config();
 
@@ -32,10 +33,11 @@ require("dotenv").config();
 const userPoolId = process.env.COGNITO_USER_POOL_ID;
 const clientId = process.env.COGNITO_CLIENT_ID || "";
 const clientSecret = process.env.COGNITO_CLIENT_SECRET || "";
+const region = process.env.COGNITO_REGION || "";
 const poolData = {UserPoolId: userPoolId, ClientId: clientId};
 
 const clientConfig: CognitoIdentityProviderClientConfig = {
-    region: 'eu-central-1',
+    region: region,
 };
 const client = new CognitoIdentityProviderClient(clientConfig);
 
@@ -155,7 +157,7 @@ interface UserAttributes {
     Value: string
 }
 
-export const getUserStatus = async (email: string): Promise<boolean> => {
+export const getUserStatus = async (email: string) => {
 
     const params: AdminGetUserCommandInput = {
         ...poolData,
@@ -186,10 +188,10 @@ export const getUserStatus = async (email: string): Promise<boolean> => {
 
         // if Corbado has created the user in AWS Cognito, we send back that the user
         // is not an existing user in the sense, he existed prior to Corbado
-        return !createdByCorbado;
+        return !createdByCorbado? EXISTS : NOT_EXISTS;
     } catch (error: any) {
         if (error.name === 'UserNotFoundException') {
-            return false;
+            return NOT_EXISTS;
         } else {
             throw error;
         }
@@ -214,7 +216,8 @@ export const createSession = async (username: string): Promise<SessionInfo> => {
         AuthFlow: AuthFlowType.CUSTOM_AUTH,
         ClientId: clientId,
         AuthParameters: {
-            USERNAME: username
+            USERNAME: username,
+            SECRET_HASH : hashSecret(clientSecret, username, clientId) || ""
         },
     };
 
@@ -233,12 +236,14 @@ export const createSession = async (username: string): Promise<SessionInfo> => {
             ChallengeResponses: {
                 ANSWER: answer,
                 USERNAME: username,
+                SECRET_HASH : hashSecret(clientSecret, username, clientId) || ""
+
             },
             Session: response.Session
         };
+
         const AuthChallengeCommand = new RespondToAuthChallengeCommand(respondToAuthChallengeCommand);
         const authResult = await client.send(AuthChallengeCommand) as RespondToAuthChallengeCommandOutput;
-
 
         if (authResult?.AuthenticationResult) {
             const token = await validateJWT(

@@ -6,7 +6,6 @@ import jwt from "jsonwebtoken";
 import {verifyPassword, getUserStatus, createUser, createSession} from "./authCognitoController";
 
 const Corbado = require('corbado');
-
 const {Webhook} = require('corbado-webhook');
 
 

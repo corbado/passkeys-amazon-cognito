@@ -35,17 +35,16 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     const loginData = {email: email, password: password};
-    return this.http.post<{ token: string, userId: string }>('http://localhost:3000/api/auth/login', loginData)
+    return this.http.post<{ token: string }>('http://localhost:3000/api/auth/login', loginData)
       .pipe(
         map(responseData => {
           const token = responseData.token;
           this.token = token;
+          console.log(responseData)
           if (token) {
-            const userId = responseData.userId;
-            this.userId = userId;
             this.isAuthenticated = true;
             this.authStatusListener.next(true);
-            this.router.navigate(['/welcome']);
+            this.router.navigate(['/logged-in']);
           }
         })
       );
@@ -63,10 +62,21 @@ export class AuthService {
   }
 
   async corbadoSessionVerify(corbadoSessionToken: string) {
-    const sessionInfo = await this.http.get(`http://localhost:3000/api/corbado/sessionVerify?corbadoSessionToken=${corbadoSessionToken}`).toPromise();
-    // if (!sessionInfo?.idToken) throw new Error(`cannot fetch authentication token ${loggedInUser}!`);
-    // sessionInfo.last_refresh = +Date.now();
-    return true;
+    try {
+      this.http.get<{ idToken: string }>(`http://localhost:3000/api/corbado/sessionVerify?corbadoSessionToken=${corbadoSessionToken}`)
+        .subscribe(responseData => {
+          const token = responseData.idToken;
+          this.token = token;
+          if (token) {
+            this.isAuthenticated = true;
+            this.authStatusListener.next(true);
+            this.router.navigate(['/logged-in']);
+          }
+        });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
 }
