@@ -51,13 +51,14 @@ The sample project uses Angular as web frontend framework and Node.js / Express 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-We provide a docker file for quick start. Note that you need to enter Amazon Cognito and Corbado environment variables to get things working:
+We provide a docker file for quick start. Note that you need to enter Amazon Cognito and Corbado environment variables to get things working. Besides you may also need to copy the AWS CLI scredentials from `.aws/credentials` (see `dokcer-compose.yml`):
 
 ```
 COGNITO_REGION=
 COGNITO_USER_POOL_ID=
 COGNITO_CLIENT_ID=
 COGNITO_CLIENT_SECRET=
+COGNITO_JWKS=
 
 CORBADO_PROJECT_ID=
 CORBADO_API_SECRET=
