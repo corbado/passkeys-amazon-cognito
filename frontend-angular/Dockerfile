@@ -16,4 +16,4 @@ RUN npm install -g @angular/cli
 EXPOSE 4200
 
 # Start the frontend using the "ng serve" command
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["/bin/sh", "-c", "npm install && npm install -g @angular/cli && ng serve --host 0.0.0.0"]

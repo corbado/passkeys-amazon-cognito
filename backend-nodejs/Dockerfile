@@ -7,12 +7,8 @@ WORKDIR /app
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
-
-
 # Expose the port used by the backend
 EXPOSE 3000
 
 # Start the backend using the "npm run dev" command
-CMD ["npm", "run", "dev"]
+CMD ["/bin/sh", "-c", "npm install && npm run dev"]
