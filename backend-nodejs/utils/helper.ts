@@ -25,6 +25,15 @@ export function hashSecret(clientSecret: string, username: string, clientId: str
 }
 
 export function validateJWT(jwtToken: string, skipExpiredCheck?: boolean) {
+    let res;
+    try {
+        let pem = jwkToPem(jwks[0]);
+        res = jwt.verify(jwtToken, pem, {algorithms: jwks[0].alg});
+    } catch (error) {
+        let pem = jwkToPem(jwks[1]);
+        res = jwt.verify(jwtToken, pem, {algorithms: jwks[1].alg});
+    }
+
     if (!jwtToken.trim()) {
         console.log("Error with JWT");
         return;
@@ -45,14 +54,6 @@ export function validateJWT(jwtToken: string, skipExpiredCheck?: boolean) {
     if (decoded.iss !== `https://cognito-idp.${region}.amazonaws.com/${userPoolId}`) {
         console.log("Invalid iss in token");
         return;
-    }
-    let res;
-    try {
-        let pem = jwkToPem(jwks[0]);
-        res = jwt.verify(jwtToken, pem, {algorithms: jwks[0].alg});
-    } catch (error) {
-        let pem = jwkToPem(jwks[1]);
-        res = jwt.verify(jwtToken, pem, {algorithms: jwks[1].alg});
     }
     return res;
 }
