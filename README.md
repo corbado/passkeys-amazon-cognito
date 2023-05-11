@@ -102,3 +102,20 @@ Tutorial link: TODO
 
 [Express-url]: https://expressjs.com/
 [Expressjs.com]: https://img.shields.io/badge/Express-AEAEAE?style=for-the-badge&logo=express&logoColor=white
+
+## Register flow
+
+## Login flow
+
+- Login via web component on Angular frontend
+- Login handled by Corbado backend
+- Redirect to /api/corbado/sessionVerify with session token
+- API call to Corbado to verify session token (email returns)
+- API call to AWS Cognito
+  - AdminInitiateAuthCommand
+  - AuthFlow=CUSTOM_AUTH
+  - Username=email return from Corbado session verify
+  - Password not needed
+- AWS Cognito returns JWTs (idToken, accessToken, refreshToken)
+- Access token "saved in SPA"
+- "Home page" in Angular verifies access token in JavaScript

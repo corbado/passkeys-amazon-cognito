@@ -12,6 +12,7 @@ const clientId = process.env.COGNITO_CLIENT_ID;
 const region = process.env.COGNITO_REGION;
 const envJWKS = process.env.COGNITO_JWKS;
 const userPoolId = process.env.COGNITO_USER_POOL_ID;
+console.log(envJWKS);
 const jwks: JWK[] | any[] = JSON.parse(envJWKS as string);
 
 export function hashSecret(clientSecret: string, username: string, clientId: string) {
