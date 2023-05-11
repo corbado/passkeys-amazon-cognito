@@ -18,12 +18,12 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - COGNITO_USER_POOL_ID={your_cognito_user_pool_id}
-      - COGNITO_CLIENT_ID={your_cognito_client_id}
-      - COGNITO_CLIENT_SECRET={your_cognito_client_secret}
-      - COGNITO_REGION={your_cognito_region}
+      - COGNITO_REGION=${COGNITO_REGION}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+      - COGNITO_CLIENT_SECRET=${COGNITO_CLIENT_SECRET}
       - COGNITO_JWKS=${COGNITO_JWKS}
-      - CORBADO_PROJECT_ID={your_corbado_project_id}
-      - CORBADO_API_SECRET={your_corbado_api_secret}
-      - CORBADO_WEBHOOK_USERNAME={your_corbado_webhook_username}
-      - CORBADO_WEBHOOK_PASSWORD={your_corbado_webhook_password}
+      - CORBADO_PROJECT_ID=${CORBADO_PROJECT_ID}
+      - CORBADO_API_SECRET=${CORBADO_API_SECRET}
+      - CORBADO_WEBHOOK_USERNAME=${CORBADO_WEBHOOK_USERNAME}
+      - CORBADO_WEBHOOK_PASSWORD=${CORBADO_WEBHOOK_PASSWORD}
