@@ -88,6 +88,9 @@ The following steps provide a high-level overview what happens during the passke
 7. API calls to create session in Amazon Cognito
     1. AdminInitiateAuthCommand (`AuthFlow`=`CUSTOM_AUTH`, `USERNAME`=`email` returned from previous step, no password)
     2. AWS Lambda functions are executed
+        1. `Define auth challenge`: Cognito invokes this trigger to initiate the custom auth flow
+        2. `Create auth challenge`: Cognito invokes this trigger after `Define auth challenge` to create custom challenge
+        3. `Verify auth challenge response`: Cognito invokes this trigger to verify response from user for custom challenge
     3. RespondToAuthChallenge
 8. Amazon Cognito returns JWTs (`idToken`, `accessToken`, `refreshToken`)
 9. `accessToken` "saved in Angular"
@@ -103,6 +106,9 @@ The following steps provide a high-level overview what happens during the passke
 5. API calls to create session in Amazon Cognito
     1. AdminInitiateAuthCommand (`AuthFlow`=`CUSTOM_AUTH`, `USERNAME`=`email` returned from previous step, no password)
     2. AWS Lambda functions are executed
+        1. `Define auth challenge`: Cognito invokes this trigger to initiate the custom auth flow
+        2. `Create auth challenge`: Cognito invokes this trigger after `Define auth challenge` to create custom challenge
+        3. `Verify auth challenge response`: Cognito invokes this trigger to verify response from user for custom challenge
     3. RespondToAuthChallenge
 6. Amazon Cognito returns JWTs (`idToken`, `accessToken`, `refreshToken`)
 7. `accessToken` "saved in Angular"
