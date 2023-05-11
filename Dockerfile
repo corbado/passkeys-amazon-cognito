@@ -24,6 +24,7 @@ ENV COGNITO_REGION=your_cognito_region
 ENV COGNITO_USER_POOL_ID=your_user_pool_id
 ENV COGNITO_CLIENT_ID=your_client_id
 ENV COGNITO_CLIENT_SECRET=your_client_secret
+ENV COGNITO_JWKS=your_jwks
 ENV CORBADO_PROJECT_ID=your_project_id
 ENV CORBADO_API_SECRET=your_api_secret
 ENV CORBADO_WEBHOOK_USERNAME=your_webhook_username
