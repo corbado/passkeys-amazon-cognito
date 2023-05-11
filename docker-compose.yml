@@ -1,0 +1,29 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend-angular
+      dockerfile: Dockerfile
+    volumes:
+      - './frontend-angular:/app'
+    ports:
+      - '4200:4200'
+  backend:
+    build:
+      context: ./backend-nodejs
+      dockerfile: Dockerfile
+    volumes:
+      - './backend-nodejs:/app'
+      - '${HOME}/.aws:/root/.aws'
+    ports:
+      - '3000:3000'
+    environment:
+      - COGNITO_USER_POOL_ID={your_cognito_user_pool_id}
+      - COGNITO_CLIENT_ID={your_cognito_client_id}
+      - COGNITO_CLIENT_SECRET={your_cognito_client_secret}
+      - COGNITO_REGION={your_cognito_region}
+      - COGNITO_JWKS=${COGNITO_JWKS}
+      - CORBADO_PROJECT_ID={your_corbado_project_id}
+      - CORBADO_API_SECRET={your_corbado_api_secret}
+      - CORBADO_WEBHOOK_USERNAME={your_corbado_webhook_username}
+      - CORBADO_WEBHOOK_PASSWORD={your_corbado_webhook_password}
