@@ -9,7 +9,7 @@ const Corbado = require('corbado');
 const {Webhook} = require('corbado-webhook');
 
 
-require("dotenv").config();
+require("dotenv").config({ path: '../.env' });
 
 
 // Corbado Node.js SDK
