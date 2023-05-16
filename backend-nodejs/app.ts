@@ -6,7 +6,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 // @ts-ignore
 import dotenv from 'dotenv';
-import {signUp, login, logout} from './controllers/authCognitoController';
+import {/*signUp, login, */logout} from './controllers/authCognitoController';
 import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
 import {json} from "express";
 

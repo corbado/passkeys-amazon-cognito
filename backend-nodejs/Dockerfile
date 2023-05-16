@@ -3,9 +3,9 @@ FROM node:16-alpine
 ARG TARGETOS
 ARG TARGETARCH
 
-ENV PROJECT_ID \
-    API_SECRET \
-    CLI_SECRET
+ENV CORBADO_PROJECT_ID \
+    CORBADO_API_SECRET \
+    CORBADO_CLI_SECRET
 
 
 RUN apk add --no-cache curl
@@ -23,6 +23,5 @@ COPY package*.json ./
 # Expose the port used by the backend
 EXPOSE 3000
 
-RUN chmod +x ./bin/startup.sh
 
 ENTRYPOINT ./bin/startup.sh
