@@ -41,7 +41,8 @@ const clientConfig: CognitoIdentityProviderClientConfig = {
 };
 const client = new CognitoIdentityProviderClient(clientConfig);
 
-export const signUp = async (req: Request, res: Response) => {
+// old Amazon Cognito code commented out
+/*export const signUp = async (req: Request, res: Response) => {
     const {email, password} = req.body;
 
     // Workaround, as don't want to send out confirm emails
@@ -108,7 +109,7 @@ export const login = async (req: Request, res: Response) => {
         console.log(err);
         res.status(401).json({message: 'Invalid credentials'});
     }
-};
+};*/
 
 export const logout = async (req: Request, res: Response) => {
     const {token} = req.body;
