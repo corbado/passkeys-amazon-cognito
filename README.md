@@ -22,7 +22,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Overview
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
 Passkeys are the new standard for authentication on the web. Currently, they're being rolled out by Apple, Google and Microsoft. Though, not many code
 sample projects exist, and even less for integrating them into existing authentication and user management systems. We provide a guide that shows how to easily add
@@ -50,7 +50,7 @@ The sample project uses Angular as web frontend framework and Node.js / Express 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-We provide a docker file for quickly getting started. Note that you need to enter Amazon Cognito and Corbado environment variables to get things working (see `docker-compose.yml`). Besides, you may also need to copy the AWS CLI scredentials from `.aws/credentials`:
+We provide a docker file for quickly getting started. Note that you need to enter Amazon Cognito and Corbado environment variables to get things working (see `docker-compose.yml`) and start the [Corbado CLI](https://docs.corbado.com/helpful-guides/corbado-cli) if you want to run it locally. Besides, you may also need to copy the AWS CLI scredentials from `.aws/credentials`:
 
 ```
 COGNITO_REGION=
