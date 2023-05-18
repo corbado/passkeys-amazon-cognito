@@ -234,7 +234,7 @@ export const createSession = async (username: string): Promise<SessionInfo> => {
 
         let answer = "FAILURE";
         if (response.ChallengeParameters) {
-            answer = response.ChallengeParameters.challengeString;
+            answer = response.ChallengeParameters.challenge;
         }
 
         console.log("ANSWER:", answer)
