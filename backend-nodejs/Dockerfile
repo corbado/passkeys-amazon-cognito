@@ -24,4 +24,4 @@ COPY package*.json ./
 EXPOSE 3000
 
 
-ENTRYPOINT ./bin/startup.sh
+ENTRYPOINT /bin/sh bin/startup.sh

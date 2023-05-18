@@ -16,12 +16,15 @@ corbado login --projectID $CORBADO_PROJECT_ID --cliSecret $CORBADO_CLI_SECRET
 npm install && npm run dev &
 
 # Wait for npm run dev to spin up successfully
-while ! check_dev; do
-   sleep 1
- done
+#while ! check_dev; do
+#   sleep 1
+#   echo "Looping/sleeping"
+# done
 
 # Wait for an additional 10 seconds to ensure the application is fully running
 sleep 10
+
+echo "Running corbado subscribe"
 
 # Subscribe to Corbado
 corbado subscribe --projectID $CORBADO_PROJECT_ID --cliSecret $CORBADO_CLI_SECRET http://localhost:3000
