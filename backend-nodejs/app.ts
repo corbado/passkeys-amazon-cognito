@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import {/*signUp, login, */logout} from './controllers/authCognitoController';
 import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
-import {json} from "express";
+import {json, Request, Response} from "express";
 
 const {webhookMiddleware} = require('corbado-webhook');
 
@@ -29,6 +29,11 @@ const corbadoWebhookPassword = process.env.CORBADO_WEBHOOK_PASSWORD;
 
 app.post('/api/corbado/webhook', webhookMiddleware(corbadoWebhookUsername, corbadoWebhookPassword), json(), handleWebhook);
 app.get('/api/corbado/sessionVerify', json(), sessionVerify);
+
+app.get('/ping', (req: Request, res: Response) => {
+    res.send('pong');
+});
+
 
 const port = process.env.PORT || 3000;
 

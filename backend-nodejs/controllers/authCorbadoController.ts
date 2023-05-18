@@ -4,6 +4,7 @@ import crypto from "crypto";
 // @ts-ignore
 import jwt from "jsonwebtoken";
 import {verifyPassword, getUserStatus, createUser, createSession} from "./authCognitoController";
+import {NOT_EXISTS} from "../utils/constants";
 
 const Corbado = require('corbado');
 const {Webhook} = require('corbado-webhook');
@@ -92,11 +93,11 @@ export const sessionVerify = async (req: Request, res: Response) => {
         let clientInfo = corbado.utils.getClientInfo(req);
         let corbadoUser = await corbado.sessionService.verify(corbadoSessionToken, clientInfo);
         let username = JSON.parse(corbadoUser.data.userData).username;
-        const exists = await getUserStatus(username);
-        console.log("USER EXISTS: ", exists);
+        const userStatus = await getUserStatus(username);
+        console.log("USER EXISTS: ", userStatus);
 
         // if the user does not yet exist in AWS Cognito, add him in AWS Cognito
-        if (!exists) {
+        if (userStatus === NOT_EXISTS) {
             console.log("CREATING USER...");
             await createUser(username);
         }

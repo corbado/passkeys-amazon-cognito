@@ -14,7 +14,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './backend-nodejs:/app'
-      - '${HOME}/.aws:/root/.aws'
     ports:
       - '3000:3000'
     environment:
@@ -28,3 +27,5 @@ services:
       - CORBADO_CLI_SECRET=${CORBADO_CLI_SECRET}
       - CORBADO_WEBHOOK_USERNAME=${CORBADO_WEBHOOK_USERNAME}
       - CORBADO_WEBHOOK_PASSWORD=${CORBADO_WEBHOOK_PASSWORD}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
