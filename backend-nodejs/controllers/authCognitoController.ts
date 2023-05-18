@@ -189,10 +189,16 @@ export const getUserStatus = async (email: string) => {
 
         // if Corbado has created the user in AWS Cognito, we send back that the user
         // is not an existing user in the sense, he existed prior to Corbado
-        return !createdByCorbado? EXISTS : NOT_EXISTS;
+        return {
+            userStatus: EXISTS,
+            createdByCorbado: createdByCorbado
+        };
     } catch (error: any) {
         if (error.name === 'UserNotFoundException') {
-            return NOT_EXISTS;
+            return {
+                userStatus: NOT_EXISTS,
+                createdByCorbado: false
+            };
         } else {
             throw error;
         }
@@ -231,6 +237,7 @@ export const createSession = async (username: string): Promise<SessionInfo> => {
             answer = response.ChallengeParameters.challengeString;
         }
 
+        console.log("ANSWER:", answer)
         const respondToAuthChallengeCommand: RespondToAuthChallengeCommandInput = {
             ClientId: clientId,
             ChallengeName: ChallengeNameType.CUSTOM_CHALLENGE,

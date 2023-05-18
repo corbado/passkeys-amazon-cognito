@@ -18,7 +18,7 @@ npm install && npm run dev &
 # Wait for npm run dev to spin up successfully
 while ! check_dev; do
    sleep 1
-   echo "Check if server is reachable"
+   echo "Check if backend is reachable"
  done
 
 # Wait for an additional 10 seconds to ensure the application is fully running
