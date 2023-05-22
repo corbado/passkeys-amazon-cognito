@@ -26,11 +26,11 @@
 
 Passkeys are the new standard for authentication on the web. Currently, they're being rolled out by Apple, Google and Microsoft. Though, not many code
 sample projects exist, and even less for integrating them into existing authentication and user management systems. We provide a guide that shows how to easily add
-passkeys into your existing Amazon Cognito project, while still keeping Amazon Cognito as core user management system.
+passkeys into your existing Amazon Cognito project.
 
-For this sample, we leverage [Corbado](https://www.corbado.com)'s passkey-first web components that let you integrate it in <1 hour.
+For this sample, we leverage [Corbado](https://www.corbado.com)'s passkey-first web components that let you integrate it in <1 hour, while still keeping Amazon Cognito as core user management system.
 
-Finde a detailed step-by-step tutorial [here](https://www.corbado.com/blog/passkeys-amazon-cognito).
+Find a detailed step-by-step tutorial [here](https://www.corbado.com/blog/passkeys-amazon-cognito).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -38,7 +38,7 @@ Finde a detailed step-by-step tutorial [here](https://www.corbado.com/blog/passk
 
 ### Built With
 
-The sample project uses Angular as web frontend framework and Node.js / Express as backend (both in TypeScript).
+The sample project uses Angular as web frontend framework and Node.js / Express in the backend (both in TypeScript).
 
 * [![Angular][Angular.io]][Angular-url]
 * [![Node.js][Nodejs.org]][Nodejs-url]
@@ -50,7 +50,9 @@ The sample project uses Angular as web frontend framework and Node.js / Express 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-We provide a docker file for quickly getting started. Note that you need to enter Amazon Cognito and Corbado environment variables to get things working (see `docker-compose.yml`) and start the [Corbado CLI](https://docs.corbado.com/helpful-guides/corbado-cli) if you want to run it locally. Besides, you may also need to copy the AWS CLI scredentials from `.aws/credentials`:
+We provide a docker file for quickly getting started. Note that you need to enter Amazon Cognito and Corbado environment variables to get things working (see `docker-compose.yml`). 
+
+To start project without locally without Docker, you need to run the [Corbado CLI](https://docs.corbado.com/helpful-guides/corbado-cli). Besides, you may also need to copy the AWS CLI credentials from `.aws/credentials`:
 
 ```
 COGNITO_REGION=
@@ -61,6 +63,7 @@ COGNITO_JWKS=
 
 CORBADO_PROJECT_ID=
 CORBADO_API_SECRET=
+CORBADO_CLI_SECRET=
 CORBADO_WEBHOOK_USERNAME=
 CORBADO_WEBHOOK_PASSWORD=
 ```
