@@ -55,6 +55,9 @@ We provide a docker file for quickly getting started. Note that you need to ente
 To start project without locally without Docker, you need to run the [Corbado CLI](https://docs.corbado.com/helpful-guides/corbado-cli). Besides, you may also need to copy the AWS CLI credentials from `.aws/credentials`:
 
 ```
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+
 COGNITO_REGION=
 COGNITO_USER_POOL_ID=
 COGNITO_CLIENT_ID=
