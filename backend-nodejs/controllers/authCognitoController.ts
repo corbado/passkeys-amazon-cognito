@@ -41,7 +41,8 @@ const clientConfig: CognitoIdentityProviderClientConfig = {
 };
 const client = new CognitoIdentityProviderClient(clientConfig);
 
-export const signUp = async (req: Request, res: Response) => {
+// old Amazon Cognito code commented out
+/*export const signUp = async (req: Request, res: Response) => {
     const {email, password} = req.body;
 
     // Workaround, as don't want to send out confirm emails
@@ -108,7 +109,7 @@ export const login = async (req: Request, res: Response) => {
         console.log(err);
         res.status(401).json({message: 'Invalid credentials'});
     }
-};
+};*/
 
 export const logout = async (req: Request, res: Response) => {
     const {token} = req.body;
@@ -188,10 +189,16 @@ export const getUserStatus = async (email: string) => {
 
         // if Corbado has created the user in AWS Cognito, we send back that the user
         // is not an existing user in the sense, he existed prior to Corbado
-        return !createdByCorbado? EXISTS : NOT_EXISTS;
+        return {
+            userStatus: EXISTS,
+            createdByCorbado: createdByCorbado
+        };
     } catch (error: any) {
         if (error.name === 'UserNotFoundException') {
-            return NOT_EXISTS;
+            return {
+                userStatus: NOT_EXISTS,
+                createdByCorbado: false
+            };
         } else {
             throw error;
         }
@@ -227,9 +234,10 @@ export const createSession = async (username: string): Promise<SessionInfo> => {
 
         let answer = "FAILURE";
         if (response.ChallengeParameters) {
-            answer = response.ChallengeParameters.challengeString;
+            answer = response.ChallengeParameters.challenge;
         }
 
+        console.log("ANSWER:", answer)
         const respondToAuthChallengeCommand: RespondToAuthChallengeCommandInput = {
             ClientId: clientId,
             ChallengeName: ChallengeNameType.CUSTOM_CHALLENGE,

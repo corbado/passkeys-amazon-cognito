@@ -4,6 +4,7 @@ import crypto from "crypto";
 // @ts-ignore
 import jwt from "jsonwebtoken";
 import {verifyPassword, getUserStatus, createUser, createSession} from "./authCognitoController";
+import {NOT_EXISTS} from "../utils/constants";
 
 const Corbado = require('corbado');
 const {Webhook} = require('corbado-webhook');
@@ -41,8 +42,11 @@ export const handleWebhook = async (req: Request, res: Response) => {
                 console.log("BEFORE USER STATUS");
 
                 const status = await getUserStatus(request.data.username);
-                console.log("User status: ", status);
-                response = webhook.getAuthMethodsResponse(status);
+                let correctUserStatus = status.userStatus;
+                if(status.createdByCorbado) {
+                    correctUserStatus = "not_exists"
+                }
+                response = webhook.getAuthMethodsResponse(correctUserStatus);
                 res.json(response);
                 break;
             }
@@ -92,11 +96,11 @@ export const sessionVerify = async (req: Request, res: Response) => {
         let clientInfo = corbado.utils.getClientInfo(req);
         let corbadoUser = await corbado.sessionService.verify(corbadoSessionToken, clientInfo);
         let username = JSON.parse(corbadoUser.data.userData).username;
-        const exists = await getUserStatus(username);
-        console.log("USER EXISTS: ", exists);
+        const status = await getUserStatus(username);
+        console.log("USER EXISTS: ", status.userStatus);
 
         // if the user does not yet exist in AWS Cognito, add him in AWS Cognito
-        if (!exists) {
+        if (status.userStatus === NOT_EXISTS) {
             console.log("CREATING USER...");
             await createUser(username);
         }
@@ -104,8 +108,6 @@ export const sessionVerify = async (req: Request, res: Response) => {
         // create an AWS Session
         console.log("GET AWS COGNITO SESSION TOKEN")
         let data = await createSession(username);
-
-        //let userData = await UserApp.loginCorbado(data);
 
         res.json(data);
     } catch (error: any) {
