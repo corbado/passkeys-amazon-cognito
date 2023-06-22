@@ -17,9 +17,9 @@ export class AuthComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.queryParamsSubscription = this.route.queryParams.subscribe((queryParams) => {
-      if (queryParams['corbadoSessionToken'] != undefined) {
-        let corbadoSessionToken = queryParams['corbadoSessionToken'];
-        this.authService.corbadoSessionVerify(corbadoSessionToken)
+      if (queryParams['corbadoAuthToken'] != undefined) {
+        let corbadoAuthToken = queryParams['corbadoAuthToken'];
+        this.authService.corbadoAuthTokenValidate(corbadoAuthToken)
           .then(res => {
             router.navigate(['/logged-in'])
           })

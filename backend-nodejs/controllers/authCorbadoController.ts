@@ -5,19 +5,17 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import {verifyPassword, getUserStatus, createUser, createSession} from "./authCognitoController";
 import {NOT_EXISTS} from "../utils/constants";
-
-const Corbado = require('corbado');
-const {Webhook} = require('corbado-webhook');
+const Corbado = require('@corbado/node-sdk');
 
 
-require("dotenv").config({ path: '../.env' });
+require("dotenv").config({path: '../.env' });
 
 
 // Corbado Node.js SDK
 const CORBADO_PROJECT_ID = process.env.CORBADO_PROJECT_ID;
 const CORBADO_API_SECRET = process.env.CORBADO_API_SECRET;
-const corbado = new Corbado(CORBADO_PROJECT_ID, CORBADO_API_SECRET);
-const webhook = new Webhook();
+const config = new Corbado.Configuration(CORBADO_PROJECT_ID, CORBADO_API_SECRET);
+const corbado = new Corbado.SDK(config);
 
 
 export const handleWebhook = async (req: Request, res: Response) => {
@@ -28,13 +26,13 @@ export const handleWebhook = async (req: Request, res: Response) => {
         let request: any;
         let response: any;
         console.log("BEFORE ACTION");
-        switch (webhook.getAction(req)) {
+        switch (corbado.webhooks.getAction(req)) {
 
             // Handle the "authMethods" action which basically checks
             // if a user exists on your side/in your database.
-            case webhook.WEBHOOK_ACTION.AUTH_METHODS: {
+            case corbado.webhooks.WEBHOOK_ACTION.AUTH_METHODS: {
                 console.log("WEBHOOK AUTH METHODS");
-                request = webhook.getAuthMethodsRequest(req);
+                request = corbado.webhooks.getAuthMethodsRequest(req);
 
                 // Now check if the given user/username exists in your
                 // database and send status. Implement getUserStatus()
@@ -46,21 +44,21 @@ export const handleWebhook = async (req: Request, res: Response) => {
                 if(status.createdByCorbado) {
                     correctUserStatus = "not_exists"
                 }
-                response = webhook.getAuthMethodsResponse(correctUserStatus);
+                response = corbado.webhooks.getAuthMethodsResponse(correctUserStatus);
                 res.json(response);
                 break;
             }
 
             // Handle the "passwordVerify" action which basically checks
             // if the given username and password are valid.
-            case webhook.WEBHOOK_ACTION.PASSWORD_VERIFY: {
+            case corbado.webhooks.WEBHOOK_ACTION.PASSWORD_VERIFY: {
                 console.log("WEBHOOK PASSWORD VERIFY");
-                request = webhook.getPasswordVerifyRequest(req);
+                request = corbado.webhooks.getPasswordVerifyRequest(req);
 
                 // Now check if the given username and password is
                 // valid. Implement verifyPassword() function below.
                 const isValid = await verifyPassword(request.data.username, request.data.password)
-                response = webhook.getPasswordVerifyResponse(isValid);
+                response = corbado.webhooks.getPasswordVerifyResponse(isValid);
                 res.json(response);
                 break;
             }
@@ -88,13 +86,13 @@ export const handleWebhook = async (req: Request, res: Response) => {
     }
 }
 
-export const sessionVerify = async (req: Request, res: Response) => {
-    console.log("SESSION VERIFY STARTED");
+export const authTokenValidate = async (req: Request, res: Response) => {
+    console.log("AUTH TOKEN VALIDATE STARTED");
 
     try {
-        let corbadoSessionToken = req.query["corbadoSessionToken"] as string;
+        let corbadoAuthToken = req.query["corbadoAuthToken"] as string;
         let clientInfo = corbado.utils.getClientInfo(req);
-        let corbadoUser = await corbado.sessionService.verify(corbadoSessionToken, clientInfo);
+        let corbadoUser = await corbado.authTokens.validate(corbadoAuthToken, clientInfo);
         let username = JSON.parse(corbadoUser.data.userData).username;
         const status = await getUserStatus(username);
         console.log("USER EXISTS: ", status.userStatus);

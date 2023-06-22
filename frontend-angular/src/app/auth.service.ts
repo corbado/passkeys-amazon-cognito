@@ -61,9 +61,9 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  async corbadoSessionVerify(corbadoSessionToken: string) {
+  async corbadoAuthTokenValidate(corbadoAuthToken: string) {
     try {
-      this.http.get<{ idToken: string }>(`http://localhost:3000/api/corbado/sessionVerify?corbadoSessionToken=${corbadoSessionToken}`)
+      this.http.get<{ idToken: string }>(`http://localhost:3000/api/corbado/authTokenValidate?corbadoAuthToken=${corbadoAuthToken}`)
         .subscribe(responseData => {
           const token = responseData.idToken;
           this.token = token;

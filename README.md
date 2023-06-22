@@ -86,8 +86,8 @@ The following steps provide a high-level overview what happens during the passke
 
 1. Sign-up via Corbado web component on Angular frontend
 2. Sign-up handled by Corbado backend (existing users are checked via webhooks)
-4. Redirect to `/api/corbado/sessionVerify` on Node.js / Express backend with `corbadoSessionToken`
-5. API call to Corbado backend to verify `corbadoSessionToken` (API returns `email`)
+4. Redirect to `/api/corbado/authTokenValidate` on Node.js / Express backend with `corbadoAuthToken`
+5. API call to Corbado backend to verify `corbadoAuthToken` (API returns `email`)
 6. API calls to create the user in Amazon Cognito
     1. AdminCreateUser (`email`=`email` returned from previous step, `email_verified`=`true`, `custom:createdByCorbado`=`true`)
     2. AdminSetUserPassword (`Username`=`email`, `Password`=`randomPassword`)
@@ -107,8 +107,8 @@ The following steps provide a high-level overview what happens during the passke
 
 1. Login via Corbado web component on Angular frontend
 2. Login handled by Corbado backend (existing users are checked via webhooks)
-3. Redirect to `/api/corbado/sessionVerify` on Node.js / Express backend with `corbadoSessionToken`
-4. API call to Corbado backend to verify `corbadoSessionToken` (API returns `email`)
+3. Redirect to `/api/corbado/authTokenValidate` on Node.js / Express backend with `corbadoAuthToken`
+4. API call to Corbado backend to verify `corbadoAuthToken` (API returns `email`)
 5. API calls to create session in Amazon Cognito
     1. AdminInitiateAuthCommand (`AuthFlow`=`CUSTOM_AUTH`, `USERNAME`=`email` returned from previous step, no password)
     2. AWS Lambda functions are executed

@@ -7,10 +7,19 @@ import bodyParser from 'body-parser';
 // @ts-ignore
 import dotenv from 'dotenv';
 import {/*signUp, login, */logout} from './controllers/authCognitoController';
-import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
+import {handleWebhook, authTokenValidate} from './controllers/authCorbadoController';
 import {json, Request, Response} from "express";
+const Corbado = require('@corbado/node-sdk');
 
-const {webhookMiddleware} = require('corbado-webhook');
+const projectID = process.env.CORBADO_PROJECT_ID;
+const apiSecret = process.env.CORBADO_API_SECRET;
+const corbadoWebhookUsername = process.env.CORBADO_WEBHOOK_USERNAME;
+const corbadoWebhookPassword = process.env.CORBADO_WEBHOOK_PASSWORD;
+
+const config = new Corbado.Configuration(projectID, apiSecret);
+config.webhookUsername = corbadoWebhookUsername;
+config.webhookPassword = corbadoWebhookPassword;
+const corbado = new Corbado.SDK(config);
 
 dotenv.config();
 const app = express();
@@ -23,12 +32,10 @@ app.use(cors());
 //app.post('/api/auth/login', login);
 app.post('/api/auth/logout', logout);
 
-// Corbado passkey-first authentication
-const corbadoWebhookUsername = process.env.CORBADO_WEBHOOK_USERNAME;
-const corbadoWebhookPassword = process.env.CORBADO_WEBHOOK_PASSWORD;
 
-app.post('/api/corbado/webhook', webhookMiddleware(corbadoWebhookUsername, corbadoWebhookPassword), json(), handleWebhook);
-app.get('/api/corbado/sessionVerify', json(), sessionVerify);
+
+app.post('/api/corbado/webhook', corbado.webhooks.middleware, json(), handleWebhook);
+app.get('/api/corbado/authTokenValidate', json(), authTokenValidate);
 
 app.get('/ping', (req: Request, res: Response) => {
     res.send('pong');

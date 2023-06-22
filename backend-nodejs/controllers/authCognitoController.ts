@@ -27,7 +27,7 @@ import crypto from "crypto";
 import {hashSecret, validateJWT, generatePassword} from '../utils/helper';
 import {EXISTS, NOT_EXISTS} from "../utils/constants";
 
-require("dotenv").config({ path: '../.env' });
+require("dotenv").config({path: '../.env' });
 
 
 const userPoolId = process.env.COGNITO_USER_POOL_ID;

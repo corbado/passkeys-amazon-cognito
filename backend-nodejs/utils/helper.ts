@@ -6,7 +6,7 @@ import {int} from "aws-sdk/clients/datapipeline";
 // @ts-ignore
 import jwkToPem, {JWK} from "jwk-to-pem";
 
-require("dotenv").config({ path: '../.env' });
+require("dotenv").config({path: '../.env' });
 
 const clientId = process.env.COGNITO_CLIENT_ID;
 const region = process.env.COGNITO_REGION;
