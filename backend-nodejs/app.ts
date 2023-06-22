@@ -9,17 +9,18 @@ import dotenv from 'dotenv';
 import {signUp, login, logout} from './controllers/authCognitoController';
 import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
 import {json} from "express";
-import {SDK, Configuration} from '@corbado/node-sdk';
+// import {SDK, Configuration} from '@corbado/node-sdk';
+const Corbado = require('@corbado/node-sdk');
 
 const projectID = process.env.CORBADO_PROJECT_ID;
 const apiSecret = process.env.CORBADO_API_SECRET;
 const corbadoWebhookUsername = process.env.CORBADO_WEBHOOK_USERNAME;
 const corbadoWebhookPassword = process.env.CORBADO_WEBHOOK_PASSWORD;
 
-const config = new Configuration(projectID, apiSecret);
+const config = new Corbado.Configuration(projectID, apiSecret);
 config.webhookUsername = corbadoWebhookUsername;
 config.webhookPassword = corbadoWebhookPassword;
-const corbado = new SDK(config);
+const corbado = new Corbado.SDK(config);
 
 dotenv.config();
 const app = express();

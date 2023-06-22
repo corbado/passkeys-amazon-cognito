@@ -4,7 +4,7 @@ import crypto from "crypto";
 // @ts-ignore
 import jwt from "jsonwebtoken";
 import {verifyPassword, getUserStatus, createUser, createSession} from "./authCognitoController";
-import {SDK, Configuration} from '@corbado/node-sdk';
+const Corbado = require('@corbado/node-sdk');
 
 
 require("dotenv").config();
@@ -13,8 +13,8 @@ require("dotenv").config();
 // Corbado Node.js SDK
 const CORBADO_PROJECT_ID = process.env.CORBADO_PROJECT_ID;
 const CORBADO_API_SECRET = process.env.CORBADO_API_SECRET;
-const config = new Configuration(CORBADO_PROJECT_ID, CORBADO_API_SECRET);
-const corbado = new SDK(config);
+const config = new Corbado.Configuration(CORBADO_PROJECT_ID, CORBADO_API_SECRET);
+const corbado = new Corbado.SDK(config);
 
 
 export const handleWebhook = async (req: Request, res: Response) => {
