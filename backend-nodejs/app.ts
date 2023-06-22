@@ -6,10 +6,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 // @ts-ignore
 import dotenv from 'dotenv';
-import {signUp, login, logout} from './controllers/authCognitoController';
+import {/*signUp, login, */logout} from './controllers/authCognitoController';
 import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
-import {json} from "express";
-// import {SDK, Configuration} from '@corbado/node-sdk';
+import {json, Request, Response} from "express";
 const Corbado = require('@corbado/node-sdk');
 
 const projectID = process.env.CORBADO_PROJECT_ID;
@@ -28,15 +27,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Normal authentication process
-app.post('/api/auth/signup', signUp);
-app.post('/api/auth/login', login);
+// Old authentication process for Amazon Cognito
+//app.post('/api/auth/signup', signUp);
+//app.post('/api/auth/login', login);
 app.post('/api/auth/logout', logout);
 
 
 
 app.post('/api/corbado/webhook', corbado.webhooks.middleware, json(), handleWebhook);
 app.get('/api/corbado/sessionVerify', json(), sessionVerify);
+
+app.get('/ping', (req: Request, res: Response) => {
+    res.send('pong');
+});
+
 
 const port = process.env.PORT || 3000;
 
