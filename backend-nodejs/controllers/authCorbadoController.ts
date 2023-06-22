@@ -86,8 +86,8 @@ export const handleWebhook = async (req: Request, res: Response) => {
     }
 }
 
-export const sessionVerify = async (req: Request, res: Response) => {
-    console.log("SESSION VERIFY STARTED");
+export const authTokenValidate = async (req: Request, res: Response) => {
+    console.log("AUTH TOKEN VALIDATE STARTED");
 
     try {
         let corbadoAuthToken = req.query["corbadoAuthToken"] as string;

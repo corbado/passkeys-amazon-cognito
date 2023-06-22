@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 // @ts-ignore
 import dotenv from 'dotenv';
 import {/*signUp, login, */logout} from './controllers/authCognitoController';
-import {handleWebhook, sessionVerify} from './controllers/authCorbadoController';
+import {handleWebhook, authTokenValidate} from './controllers/authCorbadoController';
 import {json, Request, Response} from "express";
 const Corbado = require('@corbado/node-sdk');
 
@@ -35,7 +35,7 @@ app.post('/api/auth/logout', logout);
 
 
 app.post('/api/corbado/webhook', corbado.webhooks.middleware, json(), handleWebhook);
-app.get('/api/corbado/sessionVerify', json(), sessionVerify);
+app.get('/api/corbado/authTokenValidate', json(), authTokenValidate);
 
 app.get('/ping', (req: Request, res: Response) => {
     res.send('pong');
