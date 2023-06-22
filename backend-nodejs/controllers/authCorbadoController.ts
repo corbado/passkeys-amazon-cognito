@@ -8,7 +8,7 @@ import {NOT_EXISTS} from "../utils/constants";
 const Corbado = require('@corbado/node-sdk');
 
 
-require("dotenv").config();
+require("dotenv").config({path: '../.env' });
 
 
 // Corbado Node.js SDK
